@@ -1,22 +1,38 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { HttpModule } from "@angular/http";
 
-import { AppComponent } from './app.component';
-import { ProductPageComponent } from './product-page/product-page.component';
+import { AppComponent } from "./app.component";
+import { ProductPageComponent } from "./product-page/product-page.component";
+import { ProductDescriptionComponent } from "./product-description/product-description.component";
+import { ProductService } from "./product.service";
+import { ProductTracklistingComponent } from "./product-tracklisting/product-tracklisting.component";
+import { ProductListComponent } from "./product-list/product-list.component";
+
+import { Routes, RouterModule } from "@angular/router";
+
+const appRoutes:Routes = [
+  { path: "products", component: ProductListComponent },
+  { path: "product/:id", component: ProductPageComponent },
+  { path: "", pathMatch: "full", redirectTo: "products" },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    ProductDescriptionComponent,
+    ProductTracklistingComponent,
+    ProductListComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRoutes),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ProductService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
